@@ -1,4 +1,4 @@
-export function DisplaySection() {
+export function DisplaySection({ triggerPreview }) {
   const handleScrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
@@ -10,7 +10,9 @@ export function DisplaySection() {
       <span className="description">
         A display that's up to 2x brighter in the sun.
       </span>
-      <button className="button">Try me!</button>
+      <button className="button" onClick={triggerPreview}>
+        Try me!
+      </button>
       <button className="back-button" onClick={handleScrollToTop}>
         TOP
       </button>
