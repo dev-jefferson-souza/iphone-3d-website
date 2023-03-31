@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { DisplaySection } from "./components/DisplaySection";
 import { Jumbotron } from "./components/Jumbotron";
+import { Loader } from "./components/Loader";
 import { Nav } from "./components/Nav";
 import { SoundSection } from "./components/SoundSection";
 import { WebgiViewer } from "./components/WebgiViewer";
@@ -14,6 +15,7 @@ function App() {
 
   return (
     <div className="App">
+      <Loader />
       <div ref={contentRef} id="content">
         <Nav />
         <Jumbotron />
