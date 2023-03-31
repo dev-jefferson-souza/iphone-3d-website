@@ -6,7 +6,7 @@ export const scrollAnimation = (position, target, isMobile, onUpdate) => {
   tl.to(position, {
     x: !isMobile ? -3.38 : -7.0,
     y: !isMobile ? -10.74 : -12.2,
-    z: !isMobile ? -5.93 : 6.0,
+    z: !isMobile ? -5.93 : -6.0,
     scrollTrigger: {
       trigger: ".sound-section",
       start: "top bottom",

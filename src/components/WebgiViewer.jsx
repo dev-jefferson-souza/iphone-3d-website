@@ -154,7 +154,7 @@ export const WebgiViewer = forwardRef((props, ref) => {
       },
     });
 
-    gsap.to(target, {
+    gsap.to(targetRef, {
       x: !isMobile ? -0.55 : 1.62,
       y: !isMobile ? 0.32 : 0.02,
       z: !isMobile ? 0.0 : -0.06,
