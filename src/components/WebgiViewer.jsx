@@ -13,11 +13,18 @@ import {
   TonemapPlugin,
   ViewerApp,
 } from "webgi";
+import { scrollAnimation } from "../lib/scroll-animations";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export function WebgiViewer() {
   const canvasRef = useRef(null);
+
+  const memoizedScrollAnimation = useCallback((position, target, onUpdate) => {
+    if (position && target && onUpdate) {
+      scrollAnimation(position, target, onUpdate);
+    }
+  }, []);
 
   const setupViewer = useCallback(async () => {
     const viewer = new ViewerApp({
@@ -44,17 +51,25 @@ export function WebgiViewer() {
 
     viewer.getPlugin(TonemapPlugin).config.clipBackground = true;
 
-    viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: flase });
+    viewer.scene.activeCamera.setCameraOptions({ controlsEnabled: false });
 
     window.scrollTo(0, 0);
 
     let needsUpdate = true;
 
+    const onUpdate = () => {
+      needsUpdate = true;
+      viewer.setDirty();
+    };
+
     viewer.addEventListener("preFrame", () => {
       if (needsUpdate) {
         camera.positionTargetUpdated(true);
+        needsUpdate = false;
       }
     });
+
+    memoizedScrollAnimation(position, target, onUpdate);
   }, []);
 
   useEffect(() => {
@@ -67,3 +82,21 @@ export function WebgiViewer() {
     </div>
   );
 }
+
+// import { useRef, useState, useCallback, forwardRef, useImperativeHandle, useEffect } from "react";
+
+// import {
+//   ViewerApp,
+//   AssetManagerPlugin,
+//   GBufferPlugin,
+//   ProgressivePlugin,
+//   TonemapPlugin,
+//   SSRPlugin,
+//   SSAOPlugin,
+//   GammaCorrectionPlugin,
+//   addBasePlugins,
+//   CanvasSnipperPlugin,
+//   mobileAndTabletCheck
+// } from "webgi";
+// import gsap from 'gsap'
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
