@@ -334,7 +334,7 @@ nav > div > ul > li > img {
   display: flex;
   align-items: center;
   flex-direction: column;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .sound-section .title {
